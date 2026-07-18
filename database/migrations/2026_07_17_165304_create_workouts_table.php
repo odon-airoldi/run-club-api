@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('place_address');
             $table->unsignedTinyInteger('buffer_time');
             $table->unsignedTinyInteger('distance');
-            $table->unsignedTinyInteger('pace');
+            $table->unsignedSmallInteger('pace');
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
         });

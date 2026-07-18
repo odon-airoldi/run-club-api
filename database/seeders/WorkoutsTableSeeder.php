@@ -23,6 +23,7 @@ class WorkoutsTableSeeder extends Seeder
         $newWorkout->buffer_time = $faker->numberBetween(0, 6) * 5;
         $newWorkout->distance = $faker->numberBetween(5, 40);
         $newWorkout->pace = $faker->numberBetween(16, 24) * 15;
+        $newWorkout->user_id = $faker->numberBetween(1, 8);
         $newWorkout->save();
     }
 }
