@@ -16,9 +16,9 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description');
-            $table->date('date');
-            $table->string('place');
-            $table->time('time');
+            $table->dateTime('date_time');
+            $table->string('place_city');
+            $table->string('place_address');
             $table->unsignedTinyInteger('buffer_time');
             $table->unsignedTinyInteger('distance');
             $table->unsignedTinyInteger('pace');
