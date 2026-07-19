@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Workout;
 use Illuminate\Http\Request;
 
 class WorkoutController extends Controller
@@ -11,7 +12,9 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        return view('workout.workouts');
+        $workouts = Workout::all();
+
+        return view('workout.workouts', compact('workouts'));
     }
 
     /**
@@ -33,9 +36,9 @@ class WorkoutController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Workout $workout)
     {
-        //
+        return view('workout.workout', compact('workout'));
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class workout extends Model
+class Workout extends Model
 {
     public function user()
     {
