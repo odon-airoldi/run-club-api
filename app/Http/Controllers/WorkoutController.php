@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
@@ -29,10 +30,10 @@ class WorkoutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
 
-
+        $user_id = Auth::user()->id;
         $data = $request->all();
         [$minutes, $seconds] = explode(':', $data['pace']);
         $pace = ($minutes * 60) + $seconds;
@@ -46,7 +47,7 @@ class WorkoutController extends Controller
         $newWorkout->buffer_time = $data['buffer_time'];
         $newWorkout->distance = $data['distance'];
         $newWorkout->pace = $pace;
-        // $newWorkout->user_id = $data[''];
+        $newWorkout->user_id = $user_id;
         $newWorkout->save();
 
         return redirect()->route('workouts.show', $newWorkout);
