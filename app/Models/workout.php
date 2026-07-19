@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workout extends Model
 {
+    protected $casts = [
+        'date_time' => 'datetime',
+        'pace' => 'integer'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

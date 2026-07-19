@@ -32,22 +32,24 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-
-        $user_id = Auth::user()->id;
         $data = $request->all();
         [$minutes, $seconds] = explode(':', $data['pace']);
         $pace = ($minutes * 60) + $seconds;
+        $user_id = Auth::user()->id;
+        $date_time = $data['date'] . ' ' . $data['time'];
 
         $newWorkout = new Workout();
         $newWorkout->name = $data['name'];
         $newWorkout->description = $data['description'];
-        $newWorkout->date_time = $data['date'];
+        $newWorkout->date_time = $date_time;
         $newWorkout->place_city = $data['place_city'];
         $newWorkout->place_address = $data['place_address'];
         $newWorkout->buffer_time = $data['buffer_time'];
         $newWorkout->distance = $data['distance'];
         $newWorkout->pace = $pace;
         $newWorkout->user_id = $user_id;
+
+
         $newWorkout->save();
 
         return redirect()->route('workouts.show', $newWorkout);
@@ -64,9 +66,9 @@ class WorkoutController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Workout $workout)
     {
-        //
+        return view('workout.workout-edit', compact('workout'));
     }
 
     /**
