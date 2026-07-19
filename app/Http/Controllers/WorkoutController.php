@@ -11,7 +11,7 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        //
+        return view('workout.workouts');
     }
 
     /**
