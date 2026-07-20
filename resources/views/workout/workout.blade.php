@@ -7,3 +7,15 @@
     </li>
 
 </ul>
+
+<ul>
+    <li><a href="{{ route('workouts.edit', $workout) }}">Edit this Workout</a></li>
+    <li>
+        <form action="{{ route('workouts.destroy', $workout) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete this Workout</button>
+        </form>
+    </li>
+    <li><a href="{{ route('workouts.create') }}">Add Workout</a></li>
+</ul>

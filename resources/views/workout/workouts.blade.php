@@ -7,3 +7,7 @@
 
     @endforeach
 </ul>
+
+<ul>
+    <li><a href="{{ route('workouts.create') }}">Add Workout</a></li>
+</ul>
