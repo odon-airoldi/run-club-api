@@ -45,3 +45,15 @@
         </div>
     </form>
 </div>
+
+<ul>
+    <li><a href="{{ route('workouts.show', $workout) }}">View Workout</a></li>
+    <li>
+        <form action="{{ route('workouts.destroy', $workout) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete this Workout</button>
+        </form>
+    </li>
+    <li><a href="{{ route('workouts.index') }}">All Workouts</a></li>
+</ul>

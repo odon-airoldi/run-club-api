@@ -43,3 +43,7 @@
         </div>
     </form>
 </div>
+
+<ul>
+    <li><a href="{{ route('workouts.index') }}">All Workouts</a></li>
+</ul>
