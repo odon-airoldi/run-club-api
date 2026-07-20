@@ -8,7 +8,6 @@ class Workout extends Model
 {
     protected $casts = [
         'date_time' => 'datetime',
-        'pace' => 'integer'
     ];
 
     public function user()

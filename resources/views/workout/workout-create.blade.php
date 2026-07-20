@@ -34,8 +34,9 @@
             <input type="number" id="distance" name="distance" />
         </div>
         <div>
-            <label for="pace">Pace</label>
-            <input type="time" id="pace" name="pace" value="04:30" />
+            <label for="pace_m">Pace</label>
+            <input type="number" id="pace_m" name="pace_m" value="" min="0" max="59" /> m
+            <input type="number" id="pace_s" name="pace_s" value="" min="0" max="59" /> s
         </div>
         <div>
             <button type="submit">Add Workout</button>

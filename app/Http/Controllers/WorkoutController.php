@@ -33,10 +33,13 @@ class WorkoutController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        [$minutes, $seconds] = explode(':', $data['pace']);
-        $pace = ($minutes * 60) + $seconds;
-        $user_id = Auth::user()->id;
+
+        // [$minutes, $seconds] = explode(':', $data['pace']);
+        // $pace = ($minutes * 60) + $seconds;
+
         $date_time = $data['date'] . ' ' . $data['time'];
+        $pace = $data['pace_m'] * 60 + $data['pace_s'];
+        $user_id = Auth::user()->id;
 
         $newWorkout = new Workout();
         $newWorkout->name = $data['name'];
@@ -48,7 +51,6 @@ class WorkoutController extends Controller
         $newWorkout->distance = $data['distance'];
         $newWorkout->pace = $pace;
         $newWorkout->user_id = $user_id;
-
 
         $newWorkout->save();
 

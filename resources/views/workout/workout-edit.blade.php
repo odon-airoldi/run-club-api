@@ -12,11 +12,11 @@
         </div>
         <div>
             <label for="date">Date</label>
-            <input type="date" id="date" name="date" value="" />
+            <input type="date" id="date" name="date" value="{{ $workout->date_time->format('Y-m-d') }}" />
         </div>
         <div>
             <label for="time">Time</label>
-            <input type="time" id="time" name="time" value="" />
+            <input type="time" id="time" name="time" value="{{ $workout->date_time->format('H:i') }}" />
         </div>
         <div>
             <label for="place_city">Place City</label>
@@ -36,7 +36,9 @@
         </div>
         <div>
             <label for="pace">Pace</label>
-            <input type="time" id="pace" name="pace" value="{{ $workout->pace }}" />
+            <input type="number" id="pace_m" name="pace_m" value="{{ ($workout->pace - $workout->pace % 60) / 60 }}"
+                min="0" max="59" /> m
+            <input type="number" id="pace_s" name="pace_s" value="{{ $workout->pace % 60 }}" min="0" max="59" /> s
         </div>
         <div>
             <button type="submit">Update Workout</button>
