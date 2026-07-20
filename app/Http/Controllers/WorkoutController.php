@@ -76,9 +76,24 @@ class WorkoutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Workout $workout)
     {
-        //
+        $data = $request->all();
+
+        $date_time = $data['date'] . ' ' . $data['time'];
+        $pace = $data['pace_m'] * 60 + $data['pace_s'];
+
+        $workout->name = $data['name'];
+        $workout->description = $data['description'];
+        $workout->date_time = $date_time;
+        $workout->place_city = $data['place_city'];
+        $workout->place_address = $data['place_address'];
+        $workout->buffer_time = $data['buffer_time'];
+        $workout->distance = $data['distance'];
+        $workout->pace = $pace;
+        $workout->save();
+
+        return redirect()->route('workouts.show', $workout);
     }
 
     /**
