@@ -13,8 +13,11 @@ class WorkoutController extends Controller
      */
     public function index()
     {
+        $data = Workout::All();
+
         return response()->json([
-            'success' => 'true'
+            'success' => true,
+            'results' => $data
         ]);
     }
 
@@ -31,7 +34,10 @@ class WorkoutController extends Controller
      */
     public function show(Workout $workout)
     {
-        //
+        return response()->json([
+            'success' => true,
+            'results' => $workout
+        ]);
     }
 
     /**
