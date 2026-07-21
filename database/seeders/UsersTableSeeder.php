@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
         $newUser->name = 'Odon';
         $newUser->email = 'odon.airoldi@gmail.com';
         $newUser->password = Hash::make('password');
+        $newUser->role = 'admin';
         $newUser->save();
 
         for ($i = 0; $i < 8; $i++) {
