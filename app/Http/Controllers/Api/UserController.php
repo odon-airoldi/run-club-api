@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Workout;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class WorkoutController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Workout::all();
+        $data = User::all();
 
         return response()->json([
             'success' => true,
@@ -32,18 +32,18 @@ class WorkoutController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Workout $workout)
+    public function show(User $user)
     {
         return response()->json([
             'success' => true,
-            'results' => $workout
+            'results' => $user
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Workout $workout)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -51,7 +51,7 @@ class WorkoutController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Workout $workout)
+    public function destroy(User $user)
     {
         //
     }
