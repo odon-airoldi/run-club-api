@@ -26,7 +26,9 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newWorkout = Workout::create($request);
+
+        return response()->json($newWorkout, 201);
     }
 
     /**
