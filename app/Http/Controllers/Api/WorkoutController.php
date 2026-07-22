@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Workout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
@@ -26,7 +27,20 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-        $newWorkout = Workout::create($request);
+        $validated = $request->validate([
+            'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'date_time' => ['required', 'date'],
+            'place_city' => ['required', 'string'],
+            'place_address' => ['required', 'string'],
+            'buffer_time' => ['required', 'integer'],
+            'distance' => ['required', 'integer'],
+            'pace' => ['required', 'integer'],
+        ]);
+
+        $validated['user_id'] = 1;
+
+        $newWorkout = Workout::create($validated);
 
         return response()->json($newWorkout, 201);
     }

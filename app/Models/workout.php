@@ -19,4 +19,16 @@ class Workout extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    protected $fillable = [
+        'name',
+        'description',
+        'date_time',
+        'place_city',
+        'place_address',
+        'buffer_time',
+        'distance',
+        'pace',
+        'user_id'
+    ];
 }
