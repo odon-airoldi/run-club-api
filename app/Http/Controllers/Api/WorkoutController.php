@@ -33,9 +33,9 @@ class WorkoutController extends Controller
             'date_time' => ['required', 'date'],
             'place_city' => ['required', 'string'],
             'place_address' => ['required', 'string'],
-            'buffer_time' => ['required', 'integer'],
-            'distance' => ['required', 'integer'],
-            'pace' => ['required', 'integer'],
+            'buffer_time' => ['required', 'integer', 'max:3599'],
+            'distance' => ['required', 'integer', 'min:1'],
+            'pace' => ['required', 'integer', 'max:3599'],
         ]);
 
         $validated['user_id'] = 1;
@@ -72,5 +72,7 @@ class WorkoutController extends Controller
     public function destroy(Workout $workout)
     {
         $workout->delete();
+
+        return response()->noContent();
     }
 }

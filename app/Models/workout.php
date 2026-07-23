@@ -20,6 +20,7 @@ class Workout extends Model
         return $this->belongsToMany(User::class);
     }
 
+    // campi del modello autorizzati in scrittura
     protected $fillable = [
         'name',
         'description',
