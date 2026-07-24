@@ -63,7 +63,20 @@ class WorkoutController extends Controller
      */
     public function update(Request $request, Workout $workout)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'date_time' => ['required', 'date'],
+            'place_city' => ['required', 'string'],
+            'place_address' => ['required', 'string'],
+            'buffer_time' => ['required', 'integer', 'max:3599'],
+            'distance' => ['required', 'integer', 'min:1'],
+            'pace' => ['required', 'integer', 'max:3599'],
+        ]);
+
+        $workout->update($validated);
+
+        return response()->json($workout, 201);
     }
 
     /**
