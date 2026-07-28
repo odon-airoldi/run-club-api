@@ -8,15 +8,6 @@ use Illuminate\Http\Request;
 
 class WorkoutController extends Controller
 {
-    /**
-     * Display users workouts.
-     */
-    // public function workoutsUser(Request $request)
-    // {
-    //     return response()->json(
-    //         $request->user()->workouts()->get()
-    //     );
-    // }
 
     /**
      * Display a listing of the resource.
@@ -45,9 +36,10 @@ class WorkoutController extends Controller
             'buffer_time' => ['required', 'integer', 'max:3599'],
             'distance' => ['required', 'integer', 'min:1'],
             'pace' => ['required', 'integer', 'max:3599'],
+            'user_id' => ['required', 'integer']
         ]);
 
-        $validated['user_id'] = 1;
+        // $validated['user_id'] = 1;
 
         $newWorkout = Workout::create($validated);
 
@@ -59,7 +51,7 @@ class WorkoutController extends Controller
      */
     public function show(Workout $workout)
     {
-        $workout->load('runUsers');
+        $workout->load(['user:id,name', 'runUsers']);
 
         return response()->json([
             'success' => true,
@@ -87,6 +79,16 @@ class WorkoutController extends Controller
 
         return response()->json($workout, 201);
     }
+
+    /**
+     * Display users workouts.
+     */
+    // public function workoutsUser(Request $request)
+    // {
+    //     return response()->json(
+    //         $request->user()->workouts()->get()
+    //     );
+    // }
 
     /**
      * Remove the specified resource from storage.
