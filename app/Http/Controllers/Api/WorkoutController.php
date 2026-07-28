@@ -9,15 +9,25 @@ use Illuminate\Http\Request;
 class WorkoutController extends Controller
 {
     /**
+     * Display users workouts.
+     */
+    // public function workoutsUser(Request $request)
+    // {
+    //     return response()->json(
+    //         $request->user()->workouts()->get()
+    //     );
+    // }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Workout::all();
+        $workouts = Workout::all();
 
         return response()->json([
             'success' => true,
-            'results' => $data
+            'results' => $workouts
         ]);
     }
 
