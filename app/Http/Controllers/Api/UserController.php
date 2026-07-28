@@ -11,13 +11,17 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-        return $request->user();
+        $user = $request->user();
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email
+        ]);
     }
 
     public function userWorkouts(User $user)
     {
-        return response()->json(
-            $user->workouts()->latest()->get()
-        );
+        $userWorkouts = $user->workouts()->latest()->get();
+        return response()->json($userWorkouts);
     }
 }
