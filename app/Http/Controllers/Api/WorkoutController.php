@@ -5,9 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Workout;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
 class WorkoutController extends Controller
 {
+
+    /**
+     * Display users workouts.
+     */
+    // public function workoutsUser(Request $request)
+    // {
+    //     return response()->json(
+    //         $request->user()->workouts()->get()
+    //     );
+    // }
 
     /**
      * Display a listing of the resource.
@@ -25,6 +36,7 @@ class WorkoutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    #[Middleware('auth:sanctum')] // protetto da metodo di autenticazione sanctum
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -62,6 +74,7 @@ class WorkoutController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    #[Middleware('auth:sanctum')] // protetto da metodo di autenticazione sanctum
     public function update(Request $request, Workout $workout)
     {
         $validated = $request->validate([
@@ -81,18 +94,9 @@ class WorkoutController extends Controller
     }
 
     /**
-     * Display users workouts.
-     */
-    // public function workoutsUser(Request $request)
-    // {
-    //     return response()->json(
-    //         $request->user()->workouts()->get()
-    //     );
-    // }
-
-    /**
      * Remove the specified resource from storage.
      */
+    #[Middleware('auth:sanctum')] // protetto da metodo di autenticazione sanctum
     public function destroy(Workout $workout)
     {
         $workout->delete();
