@@ -28,22 +28,20 @@ class UserController extends Controller
     }
 
 
-    public function userRunsWorkouts(Request $request, Workout $workout)
+    public function usersWorkouts(Request $request, Workout $workout)
     {
         $user = $request->user();
 
-        if ($request->boolean) {
-            $workout->usersRun()->attach($user);
+        if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
+            $user->runsWorkouts()->detach($workout);
+            $prova = 'rimosso';
         } else {
-            $workout->usersRun()->detach($user);
+            $user->runsWorkouts()->attach($workout);
+            $prova = 'aggiunto';
         }
 
         return response()->json(
-            $request->boolean
-            // [
-            //     'user_id' => $user->id,
-            //     'workout_id' => $workout_id
-            // ]
+            $prova
         );
     }
 }
