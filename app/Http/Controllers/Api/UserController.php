@@ -32,15 +32,18 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        $workout_id = $workout->id;
-
-        $workout->usersRun()->attach($user);
+        if ($request->boolean) {
+            $workout->usersRun()->attach($user);
+        } else {
+            $workout->usersRun()->detach($user);
+        }
 
         return response()->json(
-            [
-                'user_id' => $user->id,
-                'workout_id' => $workout_id
-            ]
+            $request->boolean
+            // [
+            //     'user_id' => $user->id,
+            //     'workout_id' => $workout_id
+            // ]
         );
     }
 }
