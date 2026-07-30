@@ -34,14 +34,12 @@ class UserController extends Controller
 
         if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
             $user->runsWorkouts()->detach($workout);
-            $prova = 'rimosso';
         } else {
             $user->runsWorkouts()->attach($workout);
-            $prova = 'aggiunto';
         }
 
         return response()->json(
-            $prova
+            $workout->usersRun
         );
     }
 }
