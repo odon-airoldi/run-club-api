@@ -20,24 +20,31 @@ class UserController extends Controller
         ]);
     }
 
-
+    // user ha workout
     public function userWorkouts(User $user)
     {
         $userWorkouts = $user->workouts()->latest()->get();
         return response()->json($userWorkouts);
     }
 
+    // user partecipa a workout index
+    public function userRunsWorkoutsIndex(Request $request)
+    {
+        $userRunsWorkouts = $request->user()->runsWorkouts()->get();
+        return response()->json($userRunsWorkouts);
+    }
 
-    public function usersWorkouts(Request $request, Workout $workout)
+    // user partecipa a workout post
+    public function userRunsWorkoutsPost(Request $request, Workout $workout)
     {
         $user = $request->user();
 
+        // se esista già la relazione user workout rimuovila
         if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
             $user->runsWorkouts()->detach($workout);
         } else {
             $user->runsWorkouts()->attach($workout);
         }
-
         return response()->json(
             $workout->usersRun
         );
