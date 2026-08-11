@@ -6,8 +6,11 @@ use App\Http\Controllers\Api\WorkoutController;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
+// user
 Route::middleware(['auth:sanctum'])->get('/user', [UserController::class, 'show']);
+
+// users list
+Route::middleware(['auth:sanctum'])->get('/users', [UserController::class, 'index']);
 
 // user partecipa a workout - index
 Route::middleware(['auth:sanctum'])->get('/user/runs/workouts', [UserController::class, 'userRunsWorkoutsIndex']);

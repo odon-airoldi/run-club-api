@@ -10,14 +10,23 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
+    // user
     public function show(Request $request)
     {
         $user = $request->user();
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
-            'email' => $user->email
+            'email' => $user->email,
+            'role' => $user->role
         ]);
+    }
+
+    // users list
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users);
     }
 
     // user ha workout
