@@ -25,7 +25,7 @@ class UserController extends Controller
     // 02 users list
     public function index(Request $request)
     {
-        $users = User::select('id', 'name', 'email', 'role')->get();
+        $users = User::select('id', 'name', 'email', 'role')->with(['workouts:id,user_id', 'runsWorkouts:id,user_id'])->get();
         return response()->json($users);
     }
 
