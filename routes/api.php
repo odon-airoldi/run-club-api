@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', [UserController::class, 'show']);
 
 // 02 users list
-Route::middleware(['auth:sanctum'])->get('/users', [UserController::class, 'index']);
+Route::middleware(['auth:sanctum', 'role:admin'])->get('/users', [UserController::class, 'index']);
 
 // 04 user partecipa a workout - index
 Route::middleware(['auth:sanctum'])->get('/user/runs/workouts', [UserController::class, 'userRunsWorkoutsIndex']);

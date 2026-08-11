@@ -23,9 +23,9 @@ class UserController extends Controller
     }
 
     // 02 users list
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::select('id', 'name', 'email', 'role')->get();
         return response()->json($users);
     }
 
