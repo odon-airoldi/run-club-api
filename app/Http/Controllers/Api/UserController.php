@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    // user
+    // 01 user
     public function show(Request $request)
     {
         $user = $request->user();
@@ -22,28 +22,28 @@ class UserController extends Controller
         ]);
     }
 
-    // users list
+    // 02 users list
     public function index()
     {
         $users = User::all();
         return response()->json($users);
     }
 
-    // user ha workout
+    // 03 user ha workout
     public function userWorkouts(User $user)
     {
         $userWorkouts = $user->workouts()->latest()->get();
         return response()->json($userWorkouts);
     }
 
-    // user partecipa a workout index
+    // 04 user partecipa a workout - index
     public function userRunsWorkoutsIndex(Request $request)
     {
         $userRunsWorkouts = $request->user()->runsWorkouts()->get();
         return response()->json($userRunsWorkouts);
     }
 
-    // user partecipa a workout post
+    // 05 user partecipa a workout - post
     public function userRunsWorkoutsPost(Request $request, Workout $workout)
     {
         $user = $request->user();

@@ -6,19 +6,20 @@ use App\Http\Controllers\Api\WorkoutController;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// user
+// 01 user
 Route::middleware(['auth:sanctum'])->get('/user', [UserController::class, 'show']);
 
-// users list
+// 02 users list
 Route::middleware(['auth:sanctum'])->get('/users', [UserController::class, 'index']);
 
-// user partecipa a workout - index
+// 04 user partecipa a workout - index
 Route::middleware(['auth:sanctum'])->get('/user/runs/workouts', [UserController::class, 'userRunsWorkoutsIndex']);
 
-// user ha workout
+// 03 user ha workout
 Route::middleware(['auth:sanctum'])->get('/user/{user}/workouts', [UserController::class, 'userWorkouts']);
 
-// user partecipa a workout - post
+// 05 user partecipa a workout - post
 Route::middleware(['auth:sanctum'])->post('/user/runs/workouts/{workout}', [UserController::class, 'userRunsWorkoutsPost']);
 
+// api workouts
 Route::apiResource('workouts', WorkoutController::class);
