@@ -49,7 +49,9 @@ class UserController extends Controller
         $user = $request->user();
 
         // se esista già la relazione user workout rimuovila
-        if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
+        if ($workout->user_id === $user->id) {
+            abort(403, 'il tuo user id è uguale a user id del workout');
+        } else if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
             $user->runsWorkouts()->detach($workout);
         } else {
             $user->runsWorkouts()->attach($workout);
