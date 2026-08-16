@@ -82,6 +82,7 @@ class WorkoutController extends Controller
             'pace' => ['required', 'integer', 'max:3599'],
         ]);
 
+        // prendo user da request
         $user = $request->user();
 
         // se user è admin o l'id di user è uguale a user_id di workout
@@ -99,8 +100,15 @@ class WorkoutController extends Controller
     #[Middleware('auth:sanctum')] // protetto da metodo di autenticazione sanctum
     public function destroy(Workout $workout)
     {
-        $workout->delete();
+        // non ho request uso auth
+        $user = auth()->user();
 
+        // se user non è admin e non è proprietario del workout non autorizzo
+        if ($user->role !== 'admin' && $user->id !== $workout->user_id) {
+            abort(403, 'Non autorizzato');
+        }
+
+        $workout->delete();
         return response()->noContent();
     }
 }
