@@ -82,9 +82,15 @@ class WorkoutController extends Controller
             'pace' => ['required', 'integer', 'max:3599'],
         ]);
 
-        $workout->update($validated);
+        $user = $request->user();
 
-        return response()->json($workout, 201);
+        // se user è admin o l'id di user è uguale a user_id di workout
+        if ($user->role === 'admin' || $user->id === $workout->user_id) {
+            $workout->update($validated);
+            return response()->json($workout, 200);
+        } else {
+            abort(403, 'Non autorizzato');
+        }
     }
 
     /**
