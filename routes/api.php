@@ -6,8 +6,11 @@ use App\Http\Controllers\Api\WorkoutController;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// 00 user autenticato corrente
+Route::middleware(['auth:sanctum'])->get('/user', [UserController::class, 'me']);
+
 // 01 user
-Route::middleware(['auth:sanctum'])->get('/user', [UserController::class, 'show']);
+Route::middleware(['auth:sanctum'])->get('/users/{user}', [UserController::class, 'show']);
 
 // 02 users list
 Route::middleware(['auth:sanctum', 'role:admin'])->get('/users', [UserController::class, 'index']);

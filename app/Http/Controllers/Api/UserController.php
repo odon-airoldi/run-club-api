@@ -10,10 +10,21 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    // 01 user
-    public function show(Request $request)
+    // 00 user autenticato corrente
+    public function me(Request $request)
     {
         $user = $request->user();
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role
+        ]);
+    }
+
+    // 01 user
+    public function show(user $user)
+    {
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
