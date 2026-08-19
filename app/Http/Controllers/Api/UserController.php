@@ -28,8 +28,8 @@ class UserController extends Controller
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role
+            // 'email' => $user->email,
+            // 'role' => $user->role
         ]);
     }
 
@@ -40,17 +40,17 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    // 03 user ha workout
+    // 03 user è propritario di workout
     public function userWorkouts(User $user)
     {
-        $userWorkouts = $user->workouts()->latest()->get();
+        $userWorkouts = $user->workouts()->orderBy('date_time', 'asc')->get();
         return response()->json($userWorkouts);
     }
 
     // 04 user partecipa a workout - index
-    public function userRunsWorkoutsIndex(Request $request)
+    public function userRunsWorkoutsIndex(User $user)
     {
-        $userRunsWorkouts = $request->user()->runsWorkouts()->get();
+        $userRunsWorkouts = $user->runsWorkouts()->orderBy('date_time', 'asc')->get();
         return response()->json($userRunsWorkouts);
     }
 

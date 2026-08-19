@@ -25,7 +25,7 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        $workouts = Workout::all();
+        $workouts = Workout::orderBy('date_time', 'asc')->get();
 
         return response()->json($workouts);
     }

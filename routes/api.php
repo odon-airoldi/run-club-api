@@ -16,9 +16,9 @@ Route::middleware(['auth:sanctum'])->get('/users/{user}', [UserController::class
 Route::middleware(['auth:sanctum', 'role:admin'])->get('/users', [UserController::class, 'index']);
 
 // 04 user partecipa a workout - index
-Route::middleware(['auth:sanctum'])->get('/user/runs/workouts', [UserController::class, 'userRunsWorkoutsIndex']);
+Route::middleware(['auth:sanctum'])->get('/user/{user}/runs/workouts', [UserController::class, 'userRunsWorkoutsIndex']);
 
-// 03 user ha workout
+// 03 user è propritario di workout
 Route::middleware(['auth:sanctum'])->get('/user/{user}/workouts', [UserController::class, 'userWorkouts']);
 
 // 05 user partecipa a workout - post
