@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('workouts', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('name');
             $table->text('description');
             $table->dateTime('date_time');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('buffer_time');
             $table->unsignedTinyInteger('distance');
             $table->unsignedSmallInteger('pace');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
 
             $table->timestamps();
         });
