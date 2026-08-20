@@ -71,4 +71,11 @@ class UserController extends Controller
             $workout->usersRun
         );
     }
+
+    // 06 user delete account
+    public function destroy(user $user)
+    {
+        $user->delete();
+        return response()->noContent();
+    }
 }
