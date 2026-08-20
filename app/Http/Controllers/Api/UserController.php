@@ -73,8 +73,14 @@ class UserController extends Controller
     }
 
     // 06 user delete account
-    public function destroy(user $user)
+    public function destroy(User $user)
     {
+
+
+        if (auth()->user()->role !== 'admin' && $user->id !== auth()->user()->id) {
+            abort(403, 'Non autorizzato');
+        }
+
         $user->delete();
         return response()->noContent();
     }
