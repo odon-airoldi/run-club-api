@@ -59,14 +59,18 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        // se esista già la relazione user workout rimuovila
         if ($workout->user_id === $user->id) {
-            abort(403, 'il tuo user id è uguale a user id del workout');
+            abort(403, 'Non puoi partecipare a un workout che hai creato');
+            // se esista già la relazione user workout rimuovila
+        } else if ($workout->date_time < now()) {
+            abort(403, 'Non puoi partecipare a un workout già concluso');
         } else if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
             $user->runsWorkouts()->detach($workout);
         } else {
+            // altrimenti crea la relazione
             $user->runsWorkouts()->attach($workout);
         }
+
         return response()->json(
             $workout->usersRun
         );
