@@ -43,14 +43,14 @@ class UserController extends Controller
     // 03 user è propritario di workout
     public function userWorkouts(User $user)
     {
-        $userWorkouts = $user->workouts()->with('usersRun:id,name')->orderBy('date_time', 'asc')->get();
+        $userWorkouts = $user->workouts()->withCount('usersRun')->orderBy('date_time', 'asc')->get();
         return response()->json($userWorkouts);
     }
 
     // 04 user partecipa a workout - index
     public function userRunsWorkoutsIndex(User $user)
     {
-        $userRunsWorkouts = $user->runsWorkouts()->with('usersRun:id,name')->orderBy('date_time', 'asc')->get();
+        $userRunsWorkouts = $user->runsWorkouts()->withCount('usersRun')->orderBy('date_time', 'asc')->get();
         return response()->json($userRunsWorkouts);
     }
 

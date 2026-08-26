@@ -25,7 +25,7 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        $workouts = Workout::with('usersRun:id,name')->orderBy('date_time', 'asc')->get();
+        $workouts = Workout::withCount('usersRun')->orderBy('date_time', 'asc')->get();
 
         return response()->json($workouts);
     }
