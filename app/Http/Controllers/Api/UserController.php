@@ -61,9 +61,9 @@ class UserController extends Controller
 
         if ($workout->user_id === $user->id) {
             abort(403, 'Non puoi partecipare a un workout che hai creato');
-            // se esista già la relazione user workout rimuovila
         } else if ($workout->date_time < now()) {
             abort(403, 'Non puoi partecipare a un workout già concluso');
+            // se esista già la relazione user workout rimuovila
         } else if ($user->runsWorkouts()->where('workout_id', $workout->id)->exists()) {
             $user->runsWorkouts()->detach($workout);
         } else {
@@ -72,7 +72,8 @@ class UserController extends Controller
         }
 
         return response()->json(
-            $workout->usersRun
+            // get per rifare la query e avere dati aggiornati e non cached
+            $workout->usersRun()->get()
         );
     }
 
