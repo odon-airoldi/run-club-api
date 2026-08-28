@@ -25,13 +25,18 @@ class UserController extends Controller
     // 01 user
     public function show(user $user)
     {
-        return response()->json([
+        $currentUser = auth()->user();
+
+        $data = [
             'id' => $user->id,
-            'name' => $user->name,
-            // passare email sono a utente autenticato?
-            'email' => $user->email,
-            // 'role' => $user->role
-        ]);
+            'name' => $user->name
+        ];
+
+        if ($currentUser->role === 'admin' || $currentUser->id === $user->id) {
+            $data['email'] = $user->email;
+        }
+
+        return response()->json($data);
     }
 
     // 02 users list
