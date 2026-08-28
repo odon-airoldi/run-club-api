@@ -11,16 +11,6 @@ class WorkoutController extends Controller
 {
 
     /**
-     * Display users workouts.
-     */
-    // public function workoutsUser(Request $request)
-    // {
-    //     return response()->json(
-    //         $request->user()->workouts()->get()
-    //     );
-    // }
-
-    /**
      * Display a listing of the resource.
      */
     public function index()

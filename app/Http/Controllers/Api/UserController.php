@@ -28,7 +28,8 @@ class UserController extends Controller
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
-            // 'email' => $user->email,
+            // passare email sono a utente autenticato?
+            'email' => $user->email,
             // 'role' => $user->role
         ]);
     }
@@ -77,10 +78,26 @@ class UserController extends Controller
         );
     }
 
-    // 06 user delete account
+    // 06 user update account
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string'],
+            'email' => ['required', 'string'],
+        ]);
+
+        // se user è admin o l'id di user è uguale a user_id di workout
+        if ($user->role === 'admin' || $request->user()->id === $user->id) {
+            $user->update($validated);
+            return response()->json($user, 200);
+        } else {
+            abort(403, 'Non autorizzato');
+        }
+    }
+
+    // 07 user delete account
     public function destroy(User $user)
     {
-
 
         if (auth()->user()->role !== 'admin' && $user->id !== auth()->user()->id) {
             abort(403, 'Non autorizzato');

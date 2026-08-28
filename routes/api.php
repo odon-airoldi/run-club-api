@@ -24,7 +24,10 @@ Route::middleware(['auth:sanctum'])->get('/user/{user}/workouts', [UserControlle
 // 05 user partecipa a workout - post
 Route::middleware(['auth:sanctum'])->post('/user/runs/workouts/{workout}', [UserController::class, 'userRunsWorkoutsPost']);
 
-// 06 user delete account
+// 06 user update account
+Route::middleware(['auth:sanctum'])->put('/users/{user}/edit', [UserController::class, 'update']);
+
+// 07 user delete account
 Route::middleware(['auth:sanctum'])->delete('/users/{user}', [UserController::class, 'destroy']);
 
 // api workouts
