@@ -87,7 +87,7 @@ class UserController extends Controller
         ]);
 
         // se user è admin o l'id di user è uguale a user_id di workout
-        if ($user->role === 'admin' || $request->user()->id === $user->id) {
+        if ($request->user()->role === 'admin' || $request->user()->id === $user->id) {
             $user->update($validated);
             return response()->json($user, 200);
         } else {
