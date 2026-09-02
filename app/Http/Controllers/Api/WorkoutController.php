@@ -15,7 +15,7 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        $workouts = Workout::with(['user:id,name'])->withCount('usersRun')->orderBy('date_time', 'asc')->get();
+        $workouts = Workout::with(['user:id,first_name,last_name'])->withCount('usersRun')->orderBy('date_time', 'asc')->get();
 
         return response()->json($workouts);
     }
@@ -50,7 +50,7 @@ class WorkoutController extends Controller
      */
     public function show(Workout $workout)
     {
-        $workout->load(['user:id,name', 'usersRun:id,name']);
+        $workout->load(['user:id,first_name,last_name', 'usersRun:id,first_name,last_name']);
 
         return response()->json($workout);
     }

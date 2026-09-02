@@ -16,7 +16,8 @@ class UsersTableSeeder extends Seeder
     public function run(Faker $faker): void
     {
         $newUser = new User();
-        $newUser->name = 'Odon';
+        $newUser->first_name = 'Odon';
+        $newUser->last_name = 'Airoldi';
         $newUser->email = 'odon.airoldi@gmail.com';
         $newUser->password = Hash::make('password');
         $newUser->role = 'admin';
@@ -24,7 +25,8 @@ class UsersTableSeeder extends Seeder
 
         for ($i = 0; $i < 8; $i++) {
             $newUser = new User();
-            $newUser->name = $faker->name();
+            $newUser->first_name = $faker->firstName();
+            $newUser->last_name = $faker->lastName();
             $newUser->email = $faker->email();
             $newUser->password = Hash::make('password');
             $newUser->save();

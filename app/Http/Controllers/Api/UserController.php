@@ -16,7 +16,8 @@ class UserController extends Controller
         $user = $request->user();
         return response()->json([
             'id' => $user->id,
-            'name' => $user->name,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'email' => $user->email,
             'picture' => $user->picture,
             'role' => $user->role
@@ -30,7 +31,8 @@ class UserController extends Controller
 
         $data = [
             'id' => $user->id,
-            'name' => $user->name,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'picture' => $user->picture
         ];
 
@@ -44,7 +46,7 @@ class UserController extends Controller
     // 02 users list
     public function index(Request $request)
     {
-        $users = User::select('id', 'name', 'email', 'picture', 'role', 'created_at')->with(['workouts:id,user_id', 'runsWorkouts:id,user_id'])->get();
+        $users = User::select('id', 'first_name', 'last_name', 'email', 'picture', 'role', 'created_at')->with(['workouts:id,user_id', 'runsWorkouts:id,user_id'])->get();
         return response()->json($users);
     }
 
@@ -89,7 +91,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string'],
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
             'email' => ['required', 'string'],
         ]);
 
