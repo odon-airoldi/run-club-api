@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -91,14 +92,31 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            'email' => ['required', 'string'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'picture' => ['nullable', 'image', 'max:2048'], // max 2MB
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
         ]);
 
-        // se user è admin o l'id di user è uguale a user_id di workout
+        // se user è admin o user modifica il suo profilo
         if ($request->user()->role === 'admin' || $request->user()->id === $user->id) {
+
+            // gestisci il file solo se è stato effettivamente caricato
+            if ($request->hasFile('picture')) {
+
+                // elimina la vecchia immagine, se esiste, per non lasciare file orfani su disco
+                if ($user->picture) {
+                    Storage::disk('public')->delete($user->picture);
+                }
+                
+                $validated['picture'] = $request->file('picture')->store('users', 'public');
+            } else {
+                // nessun nuovo file caricato: non toccare il campo, mantieni quello esistente
+                unset($validated['picture']);
+            }
+
             $user->update($validated);
+
             return response()->json($user, 200);
         } else {
             abort(403, 'Non autorizzato');
