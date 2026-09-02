@@ -14,7 +14,7 @@ class WorkoutsTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 16; $i++) {
             $newWorkout = new Workout();
             $newWorkout->name = $faker->sentence(8);
             $newWorkout->description = $faker->sentence(32);
