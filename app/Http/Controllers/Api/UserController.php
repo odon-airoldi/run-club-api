@@ -18,6 +18,7 @@ class UserController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'picture' => $user->picture,
             'role' => $user->role
         ]);
     }
@@ -29,7 +30,8 @@ class UserController extends Controller
 
         $data = [
             'id' => $user->id,
-            'name' => $user->name
+            'name' => $user->name,
+            'picture' => $user->picture
         ];
 
         if ($currentUser->role === 'admin' || $currentUser->id === $user->id) {
@@ -42,7 +44,7 @@ class UserController extends Controller
     // 02 users list
     public function index(Request $request)
     {
-        $users = User::select('id', 'name', 'email', 'role', 'created_at')->with(['workouts:id,user_id', 'runsWorkouts:id,user_id'])->get();
+        $users = User::select('id', 'name', 'email', 'picture', 'role', 'created_at')->with(['workouts:id,user_id', 'runsWorkouts:id,user_id'])->get();
         return response()->json($users);
     }
 
