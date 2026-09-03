@@ -50,7 +50,7 @@ class WorkoutController extends Controller
      */
     public function show(Workout $workout)
     {
-        $workout->load(['user:id,first_name,last_name', 'usersRun:id,first_name,last_name']);
+        $workout->load(['user:id,first_name,last_name,picture', 'usersRun:id,first_name,last_name,picture']);
 
         return response()->json($workout);
     }
