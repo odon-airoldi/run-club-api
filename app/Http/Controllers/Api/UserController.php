@@ -108,10 +108,10 @@ class UserController extends Controller
                 if ($user->picture) {
                     Storage::disk('public')->delete($user->picture);
                 }
-                
+
                 $validated['picture'] = $request->file('picture')->store('users', 'public');
             } else {
-                // nessun nuovo file caricato: non toccare il campo, mantieni quello esistente
+                // nessun nuovo file caricato: rimuove la chiave picture da validated
                 unset($validated['picture']);
             }
 
