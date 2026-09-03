@@ -131,6 +131,11 @@ class UserController extends Controller
             abort(403, 'Non autorizzato');
         }
 
+        // elimina la vecchia immagine, se esiste, per non lasciare file orfani su disco
+        if ($user->picture) {
+            Storage::disk('public')->delete($user->picture);
+        }
+
         $user->delete();
         return response()->noContent();
     }
