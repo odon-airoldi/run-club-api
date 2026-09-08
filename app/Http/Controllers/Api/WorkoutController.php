@@ -13,9 +13,26 @@ class WorkoutController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $workouts = Workout::with(['user:id,first_name,last_name'])->withCount('usersRun')->orderBy('date_time', 'asc')->get();
+        $sortableColumns = ['date_time', 'distance', 'pace'];
+        $sortBy = $request->query('order', 'date_time');
+        $sortDirection = $request->query('direction', 'asc');
+
+        // se il valore non è tra quelli permessi, usa date_time come default
+        if (!in_array($sortBy, $sortableColumns)) {
+            $sortBy = 'date_time';
+        }
+
+        // se il valore non è tra quelli permessi, usa asc come default
+        if (!in_array($sortDirection, ['asc', 'desc'])) {
+            $sortDirection = 'asc';
+        }
+
+        $workouts = Workout::with(['user:id,first_name,last_name'])
+            ->withCount('usersRun')
+            ->orderBy($sortBy, $sortDirection)
+            ->get();
 
         return response()->json($workouts);
     }
