@@ -65,9 +65,16 @@ class WorkoutController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Workout $workout)
     {
-        $workout->load(['user:id,first_name,last_name,picture', 'usersRun:id,first_name,last_name,picture']);
+        $user = auth()->user();
+
+        $workout->load(['user:id,first_name,last_name,picture']);
+
+        if ($user) {
+            $workout->load(['usersRun:id,first_name,last_name,picture']);
+        }
 
         return response()->json($workout);
     }
