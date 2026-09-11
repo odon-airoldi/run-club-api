@@ -7,6 +7,10 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
+Route::get('/esercizio', function () {
+    return view('esercizio');
+});
+
 Route::resource('workouts', WorkoutController::class);
 // ->middleware(['auth', 'verified']);
 
